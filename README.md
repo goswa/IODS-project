@@ -1,11 +1,10 @@
-
-# About the project
-
-*Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
+---
+# output: github_document
+---
 
 # Hello
 The whole world is getting **digital**, thus, developing analytical and quantitative skills are essential these days. Being a doctoral student, it is beneficial to have a deep understanding of *data wrangling* and *analysis*. The overall insight of the course looks interesting and synchronized. I am looking forward to see new methods arriving in R every week. The course **"Introduction to Open Data Science 2018"** is worth learning.
 
-The link to my github repository is:
+The link to my course diary is:
 
 https://goswa.github.io/IODS-project/

@@ -1,7 +1,19 @@
-# Insert chapter 2 title here
+# **Summarizing learning of this week: **
+
 
 *Describe the work you have done this week and summarize your learning.*
 
 - Describe your work and results clearly. 
 - Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
 - Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
+
+
+
+R language always fascinated me. I started using **R** during my master's thesis. Last year I enrolled in *Data Camp* for **R** and **Python** courses for Data Scientist degree. But due to other commitments, I couldn't keep up the pace. When I got introduced with this course and its collaboration with *Data Camp*, I got really excited. I am gaining momentum again to complete the Data Scientist degree.
+
+I completed *'R-short and-sweet'* course offered by Data Camp this week. I gained good knowledge about function, argument, object and creating vectors by combining integer values. In looping, *'for-loop'* iteration was a good learning. The last exercise was tricky *'Creating your own function'* in which the task was to determine good apples from the total apple count.  After completing the course, I got acquainted with the use of spaces around binary operators and use of brackets in numerals and characters. It was a good learning from *Data Camp*.
+
+About the course, I got to know more about **R studio** and GitHub. I have never heard of R markdown syntax and cheat sheet before. I tried some of the syntax here, for instance, * for italic, *** for bold, # for Header 1, ## Header 2, and links. Concurrent use of *'Github desktop'*, *'Github browser'* and *'R studio'* is a great take-off to learn more about Data Science. 
+
+
+
