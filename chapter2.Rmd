@@ -20,7 +20,7 @@ new_data <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/cou
 ```{r, echo=FALSE}
 str(new_data)
 dim(new_data)
-head(new_data, n = 20)
+head(new_data, n = 10)
 
 ```
 
@@ -45,8 +45,6 @@ print(p)
 ### Describe and interpret the outputs, commenting on the distributions of the variables and the relationships between them. 
 
 ```{r, echo=FALSE}
-library(Hmisc)
-describe(new_data)
 
 summary(new_data)
 ```
@@ -102,15 +100,15 @@ plot(my_model, which = c(1,2,5))
 
 * Residual vs Fitted plot: 
 
-            + This plot is used to determine non-linearity. The plot seemed OK.The data appeared to be randomly spread around the straight line except for some points (35,56 and 145). The straight line showed no non-linear trend to the residuals.
+            This plot is used to determine non-linearity. The plot seemed OK.The data appeared to be randomly spread around the straight line except for some points (35,56 and 145). The straight line showed no non-linear trend to the residuals.
 
 * Normal Q-Q
 
-            + This plot is used to determine whether the residuals are normally distributed or not. The residuals in this plot were slightly deviated from the diagonal line in both the upper and lower tail. Points 35, 145 and 56 looked a little off here. The residuals were approximately normally distributed.
+            This plot is used to determine whether the residuals are normally distributed or not. The residuals in this plot were slightly deviated from the diagonal line in both the upper and lower tail. Points 35, 145 and 56 looked a little off here. The residuals were approximately normally distributed.
 
 * Residuals vs Leverage
 
-            + This plot is used to find influential cases. The plot seemed to have no influential cases. The Cook's distance line/dashed curves did not appear on the plot.
+            This plot is used to find influential cases. The plot seemed to have no influential cases. The Cook's distance line/dashed curves did not appear on the plot.
 
 
 ### References
