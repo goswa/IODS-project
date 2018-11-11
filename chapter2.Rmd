@@ -1,4 +1,4 @@
-# **Summarizing learning of this week: **
+# Summarizing learning of 2nd week: 
 
 
 ### Shweta Goswami, 08/11/2018, Week 2 exercise 'Data Wrangling and Analysis'

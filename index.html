@@ -165,16 +165,79 @@ $(document).ready(function () {
 </div>
 <div id="summarizing-learning-of-this-week" class="section level1">
 <h1><strong>Summarizing learning of this week: </strong></h1>
-<p><em>Describe the work you have done this week and summarize your learning.</em></p>
+<div id="shweta-goswami-08112018-week-2-exercise-data-wrangling-and-analysis" class="section level3">
+<h3>Shweta Goswami, 08/11/2018, Week 2 exercise ‘Data Wrangling and Analysis’</h3>
+<p>new_data &lt;- read.table(“<a href="http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt" class="uri">http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt</a>”, sep=“,”, header=TRUE)</p>
 <ul>
-<li>Describe your work and results clearly.</li>
-<li>Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods</li>
-<li>Assume the reader has no previous knowledge of your data or the more advanced methods you are using</li>
+<li>The current dataset is a part of the course ‘Introduction to Social Statistics’ held by ‘Kimmo Vehkalahti’ in ‘Fall 2014’.The study data were from the years 2014 to 2015 and it aimed to summarize the study behavior and approaches to learning in an international survey.</li>
 </ul>
-<p>R language always fascinated me. I started using <strong>R</strong> during my master’s thesis. Last year I enrolled in <em>Data Camp</em> for <strong>R</strong> and <strong>Python</strong> courses for Data Scientist degree. But due to other commitments, I couldn’t keep up the pace. When I got introduced with this course and its collaboration with <em>Data Camp</em>, I got really excited. I am gaining momentum again to complete the Data Scientist degree.</p>
-<p>I completed <em>‘R-short and-sweet’</em> course offered by Data Camp this week. I gained good knowledge about function, argument, object and creating vectors by combining integer values. In looping, <em>‘for-loop’</em> iteration was a good learning. The last exercise was tricky <em>‘Creating your own function’</em> in which the task was to determine good apples from the total apple count. After completing the course, I got acquainted with the use of spaces around binary operators and use of brackets in numerals and characters. It was a good learning from <em>Data Camp</em>.</p>
-<p>About the course, I got to know more about <strong>R studio</strong> and GitHub. I have never heard of R markdown syntax and cheat sheet before. I tried some of the syntax here, for instance, * for italic, *** for bold, # for Header 1, ## Header 2, and links. Concurrent use of <em>‘Github desktop’</em>, <em>‘Github browser’</em> and <em>‘R studio’</em> is a great take-off to learn more about Data Science.</p>
+<p>str(new_data) dim(new_data) head(new_data, n = 20)</p>
+<ul>
+<li>Out of the 183 observations of 60 variables, the current dataset has 166 observations of 7 variables. The selected variables for analysis from the raw dataset were gender, age, attitude, deep questions, strategic questions, surface questions and exam points.</li>
+</ul>
+</div>
+<div id="graphical-overview-of-the-data-and-summaries-of-the-variables-in-the-data." class="section level3">
+<h3>Graphical overview of the data and summaries of the variables in the data.</h3>
+<p>library(GGally) library(ggplot2) p &lt;- ggpairs(new_data, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap(“facethist”, bins = 20))) print(p)</p>
+<ul>
+<li>The corelation matrix plot was created using function ggpairs. The corelation between age, attitude, deep, stra, surf with exam points were -0.093, “0.437”, -0.01, 0.146, -0.144 resp. The highest corelation was found between attitude and exam points.</li>
+</ul>
+</div>
+<div id="describe-and-interpret-the-outputs-commenting-on-the-distributions-of-the-variables-and-the-relationships-between-them." class="section level3">
+<h3>Describe and interpret the outputs, commenting on the distributions of the variables and the relationships between them.</h3>
+<p>library(Hmisc) describe(new_data)</p>
+<p>summary(new_data)</p>
+<ul>
+<li><p>The male and female participants were 56 and 110 resp. The minumum and maximum age of the participants were 17 and 55 resp. The mean age was 25.51.</p></li>
+<li><p>The attitude variable had minimum and maximum values 1.40 and 5.00 resp. Considering 5-point scale (Likert Scale), the mean attitude showed neutral response with value 3.14.</p></li>
+<li><p>The deep, strategic and surface learning had mean values 3.68, 3.12, 2.78 resp. The deep learning had slightly high mean than the strategic learning. Therefore, the deep learning was the prevailing learning approach as compared to strategic and surface ones.</p></li>
+<li><p>Regarding exam points, the maximum and minimum points were 33 and 7 resp. The mean points were 22.7.</p></li>
+</ul>
+</div>
+<div id="choose-three-variables-as-explanatory-variables-and-fit-a-regression-model-where-exam-points-is-the-target-dependent-variable.-show-a-summary-of-the-fitted-model-and-comment-and-interpret-the-results." class="section level3">
+<h3>Choose three variables as explanatory variables and fit a regression model where exam points is the target (dependent) variable. Show a summary of the fitted model and comment and interpret the results.</h3>
+<p>my_model &lt;- lm(points ~ attitude + surf + stra, data = new_data) summary(my_model) summary(my_model)$coefficients</p>
+<ul>
+<li>The three variables selected for regression analysis were attitude, surface learning and strategic learning. The regression output showed that the strategic and surface learning were not statistically significant. On the other hand, attitude seemed to be statistically significant as its value is less than the p-significance level (0.05). Taken into consideration the coefficient p-values and to increase the model precision, strategic and surface learning will be excluded in the final model.</li>
+</ul>
+</div>
+<div id="if-an-explanatory-variable-in-your-model-does-not-have-a-statistically-significant-relationship-with-the-target-variable-remove-the-variable-from-the-model-and-fit-the-model-again-without-it" class="section level3">
+<h3>If an explanatory variable in your model does not have a statistically significant relationship with the target variable, remove the variable from the model and fit the model again without it</h3>
+<p>my_model2 &lt;- lm(points ~ attitude, data = new_data) summary(my_model2)</p>
+</div>
+<div id="using-a-summary-of-your-fitted-model-explain-the-relationship-between-the-chosen-explanatory-variables-and-the-target-variable-interpret-the-model-parameters.-explain-and-interpret-the-multiple-r-squared-of-the-model." class="section level3">
+<h3>Using a summary of your fitted model, explain the relationship between the chosen explanatory variables and the target variable (interpret the model parameters). Explain and interpret the multiple R squared of the model.</h3>
+<ul>
+<li><p>The residuals were approximately normally distributed. The higher the t-value, the better it is.The model showed t-value (6.21) which should be more than 2, thus, fairly reliable coefficient as a predictor.</p></li>
+<li><p>The relation between attitude and exam points existed as p-value (4.12e-09 ***) was less than the pre-determined statistical significance level (0.05).</p></li>
+<li><p>The standard error should be less than 2.5% to have the required precsion. In our model, the Standard Error is 0.6%.</p></li>
+<li><p>The R-square value in the model was 0.19. The variation of dependent variable (exam points) with the independent one (attitude) was 19% and is not quite high. The regression as a whole fits the data quite well.</p></li>
+</ul>
+</div>
+<div id="produce-the-following-diagnostic-plots-residuals-vs-fitted-values-normal-qq-plot-and-residuals-vs-leverage." class="section level3">
+<h3>Produce the following diagnostic plots: Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage.</h3>
+<p>my_model &lt;- lm(points ~ attitude + surf + stra, data = new_data) par(mfrow=c(2,2)) plot(my_model, which = c(1,2,5))</p>
+</div>
+<div id="explain-the-assumptions-of-the-model-and-interpret-the-validity-of-those-assumptions-based-on-the-diagnostic-plots." class="section level3">
+<h3>Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots.</h3>
+<ul>
+<li><p>Residual vs Fitted plot:</p>
+<pre><code>    + This plot is used to determine non-linearity. The plot seemed OK.The data appeared to be randomly spread around the straight line except for some points (35,56 and 145). The straight line showed no non-linear trend to the residuals.</code></pre></li>
+<li><p>Normal Q-Q</p>
+<pre><code>    + This plot is used to determine whether the residuals are normally distributed or not. The residuals in this plot were slightly deviated from the diagonal line in both the upper and lower tail. Points 35, 145 and 56 looked a little off here. The residuals were approximately normally distributed.</code></pre></li>
+<li><p>Residuals vs Leverage</p>
+<pre><code>    + This plot is used to find influential cases. The plot seemed to have no influential cases. The Cook's distance line/dashed curves did not appear on the plot.</code></pre></li>
+</ul>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<ul>
+<li><p><a href="https://campus.datacamp.com/courses/helsinki-open-data-science/regression-and-model-validation?ex=1" class="uri">https://campus.datacamp.com/courses/helsinki-open-data-science/regression-and-model-validation?ex=1</a></p></li>
+<li><p><a href="http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-meta.txt" class="uri">http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-meta.txt</a></p></li>
+<li><p><a href="http://statisticsbyjim.com/regression/standard-error-regression-vs-r-squared/" class="uri">http://statisticsbyjim.com/regression/standard-error-regression-vs-r-squared/</a></p></li>
+</ul>
 <hr />
+</div>
 </div>
 
 
