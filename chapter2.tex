@@ -1,0 +1,259 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Summarizing learning of this week},
+            pdfauthor={Shweta Goswami},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Summarizing learning of this week}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Shweta Goswami}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{11-11-2018}
+
+
+\begin{document}
+\maketitle
+
+new\_data \textless{}-
+read.table(``\url{http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt}'',
+sep=``,'', header=TRUE)
+
+\begin{itemize}
+\tightlist
+\item
+  The current dataset is a part of the course `Introduction to Social
+  Statistics' held by `Kimmo Vehkalahti' in `Fall 2014'.The study data
+  were from the years 2014 to 2015 and it aimed to summarize the study
+  behavior and approaches to learning in an international survey.
+\end{itemize}
+
+str(new\_data) dim(new\_data) head(new\_data, n = 20)
+
+\begin{itemize}
+\tightlist
+\item
+  Out of the 183 observations of 60 variables, the current dataset has
+  166 observations of 7 variables. The selected variables for analysis
+  from the raw dataset were gender, age, attitude, deep questions,
+  strategic questions, surface questions and exam points.
+\end{itemize}
+
+\subsubsection{Graphical overview of the data and summaries of the
+variables in the
+data.}\label{graphical-overview-of-the-data-and-summaries-of-the-variables-in-the-data.}
+
+library(GGally) library(ggplot2) p \textless{}- ggpairs(new\_data,
+mapping = aes(col = gender, alpha = 0.3), lower = list(combo =
+wrap(``facethist'', bins = 20))) print(p)
+
+\begin{itemize}
+\tightlist
+\item
+  The corelation matrix plot was created using function ggpairs. The
+  corelation between age, attitude, deep, stra, surf with exam points
+  were -0.093, ``0.437'', -0.01, 0.146, -0.144 resp. The highest
+  corelation was found between attitude and exam points.
+\end{itemize}
+
+\subsubsection{Describe and interpret the outputs, commenting on the
+distributions of the variables and the relationships between
+them.}\label{describe-and-interpret-the-outputs-commenting-on-the-distributions-of-the-variables-and-the-relationships-between-them.}
+
+library(Hmisc) describe(new\_data)
+
+summary(new\_data)
+
+\begin{itemize}
+\item
+  The male and female participants were 56 and 110 resp. The minumum and
+  maximum age of the participants were 17 and 55 resp. The mean age was
+  25.51.
+\item
+  The attitude variable had minimum and maximum values 1.40 and 5.00
+  resp. Considering 5-point scale (Likert Scale), the mean attitude
+  showed neutral response with value 3.14.
+\item
+  The deep, strategic and surface learning had mean values 3.68, 3.12,
+  2.78 resp. The deep learning had slightly high mean than the strategic
+  learning. Therefore, the deep learning was the prevailing learning
+  approach as compared to strategic and surface ones.
+\item
+  Regarding exam points, the maximum and minimum points were 33 and 7
+  resp. The mean points were 22.7.
+\end{itemize}
+
+\subsubsection{Choose three variables as explanatory variables and fit a
+regression model where exam points is the target (dependent) variable.
+Show a summary of the fitted model and comment and interpret the
+results.}\label{choose-three-variables-as-explanatory-variables-and-fit-a-regression-model-where-exam-points-is-the-target-dependent-variable.-show-a-summary-of-the-fitted-model-and-comment-and-interpret-the-results.}
+
+my\_model \textless{}- lm(points \textasciitilde{} attitude + surf +
+stra, data = new\_data) summary(my\_model)
+summary(my\_model)\$coefficients
+
+\begin{itemize}
+\tightlist
+\item
+  The three variables selected for regression analysis were attitude,
+  surface learning and strategic learning. The regression output showed
+  that the strategic and surface learning were not statistically
+  significant. On the other hand, attitude seemed to be statistically
+  significant as its value is less than the p-significance level (0.05).
+  Taken into consideration the coefficient p-values and to increase the
+  model precision, strategic and surface learning will be excluded in
+  the final model.
+\end{itemize}
+
+\subsubsection{If an explanatory variable in your model does not have a
+statistically significant relationship with the target variable, remove
+the variable from the model and fit the model again without
+it}\label{if-an-explanatory-variable-in-your-model-does-not-have-a-statistically-significant-relationship-with-the-target-variable-remove-the-variable-from-the-model-and-fit-the-model-again-without-it}
+
+my\_model2 \textless{}- lm(points \textasciitilde{} attitude, data =
+new\_data) summary(my\_model2)
+
+\subsubsection{Using a summary of your fitted model, explain the
+relationship between the chosen explanatory variables and the target
+variable (interpret the model parameters). Explain and interpret the
+multiple R squared of the
+model.}\label{using-a-summary-of-your-fitted-model-explain-the-relationship-between-the-chosen-explanatory-variables-and-the-target-variable-interpret-the-model-parameters.-explain-and-interpret-the-multiple-r-squared-of-the-model.}
+
+\begin{itemize}
+\item
+  The residuals were approximately normally distributed. The higher the
+  t-value, the better it is.The model showed t-value (6.21) which should
+  be more than 2, thus, fairly reliable coefficient as a predictor.
+\item
+  The relation between attitude and exam points existed as p-value
+  (4.12e-09 ***) was less than the pre-determined statistical
+  significance level (0.05).
+\item
+  The standard error should be less than 2.5\% to have the required
+  precsion. In our model, the Standard Error is 0.6\%.
+\item
+  The R-square value in the model was 0.19. The variation of dependent
+  variable (exam points) with the independent one (attitude) was 19\%
+  and is not quite high. The regression as a whole fits the data quite
+  well.
+\end{itemize}
+
+\subsubsection{Produce the following diagnostic plots: Residuals vs
+Fitted values, Normal QQ-plot and Residuals vs
+Leverage.}\label{produce-the-following-diagnostic-plots-residuals-vs-fitted-values-normal-qq-plot-and-residuals-vs-leverage.}
+
+my\_model \textless{}- lm(points \textasciitilde{} attitude + surf +
+stra, data = new\_data) par(mfrow=c(2,2)) plot(my\_model, which =
+c(1,2,5))
+
+\subsubsection{Explain the assumptions of the model and interpret the
+validity of those assumptions based on the diagnostic
+plots.}\label{explain-the-assumptions-of-the-model-and-interpret-the-validity-of-those-assumptions-based-on-the-diagnostic-plots.}
+
+\begin{itemize}
+\item
+  Residual vs Fitted plot:
+
+\begin{verbatim}
+    + This plot is used to determine non-linearity. The plot seemed OK.The data appeared to be randomly spread around the straight line except for some points (35,56 and 145). The straight line showed no non-linear trend to the residuals.
+\end{verbatim}
+\item
+  Normal Q-Q
+
+\begin{verbatim}
+    + This plot is used to determine whether the residuals are normally distributed or not. The residuals in this plot were slightly deviated from the diagonal line in both the upper and lower tail. Points 35, 145 and 56 looked a little off here. The residuals were approximately normally distributed.
+\end{verbatim}
+\item
+  Residuals vs Leverage
+
+\begin{verbatim}
+    + This plot is used to find influential cases. The plot seemed to have no influential cases. The Cook's distance line/dashed curves did not appear on the plot.
+\end{verbatim}
+\end{itemize}
+
+\subsubsection{References}\label{references}
+
+\begin{itemize}
+\item
+  \url{https://campus.datacamp.com/courses/helsinki-open-data-science/regression-and-model-validation?ex=1}
+\item
+  \url{http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-meta.txt}
+\item
+  \url{http://statisticsbyjim.com/regression/standard-error-regression-vs-r-squared/}
+\end{itemize}
+
+
+\end{document}

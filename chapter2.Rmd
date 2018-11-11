@@ -3,37 +3,55 @@
 title: "Summarizing learning of this week"
 author: "Shweta Goswami"
 date: "11-11-2018"
-output: html_document
-  
+output:
+  html_document: default
+  pdf_document: default
 ---
 
-new_data <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt", sep=",", header=TRUE)
+# Regression and model validation
+
+```{r, echo=FALSE}
+new_data <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt", sep=",", header=TRUE)
+
+```
 
 * The current dataset is a part of the course 'Introduction to Social Statistics' held by 'Kimmo Vehkalahti' in 'Fall 2014'.The study data were from the years 2014 to 2015 and it aimed to summarize the study behavior and approaches to learning in an international survey.
 
+```{r, echo=FALSE}
 str(new_data)
 dim(new_data)
 head(new_data, n = 20)
+
+```
+
+
 
 * Out of the 183 observations of 60 variables, the current dataset has 166 observations of 7 variables. The selected variables for analysis from the raw dataset were gender, age, attitude, deep questions, strategic questions, surface questions and exam points. 
 
 ### Graphical overview of the data and summaries of the variables in the data.
 
-
+```{r, echo=FALSE}
 library(GGally)
 library(ggplot2)
 p <- ggpairs(new_data, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
 print(p)
+```
+
+
 
 * The corelation matrix plot was created using function ggpairs. The corelation between age, attitude, deep, stra, surf with exam points were -0.093, "0.437", -0.01, 0.146, -0.144 resp. The highest corelation was found between attitude and exam points.
 
 
 ### Describe and interpret the outputs, commenting on the distributions of the variables and the relationships between them. 
 
+```{r, echo=FALSE}
 library(Hmisc)
 describe(new_data)
 
 summary(new_data)
+```
+
+
 
 * The male and female participants were 56 and 110 resp. The minumum and maximum age of the participants were 17 and 55 resp. The mean age was 25.51.
 
@@ -45,16 +63,21 @@ summary(new_data)
 
 ### Choose three variables as explanatory variables and fit a regression model where exam points is the target (dependent) variable. Show a summary of the fitted model and comment and interpret the results. 
 
+```{r, echo=FALSE}
 my_model <- lm(points ~ attitude + surf + stra, data = new_data)
 summary(my_model)
 summary(my_model)$coefficients
+```
 
 * The three variables selected for regression analysis were attitude, surface learning and strategic learning. The regression output showed that the strategic and surface learning were not statistically significant. On the other hand, attitude seemed to be statistically significant as its value is less than the p-significance level (0.05). Taken into consideration the coefficient p-values and to increase the model precision, strategic and surface learning will be excluded in the final model. 
 
 ### If an explanatory variable in your model does not have a statistically significant relationship with the target variable, remove the variable from the model and fit the model again without it
 
+
+```{r, echo=FALSE}
 my_model2 <- lm(points ~ attitude, data = new_data)
 summary(my_model2)
+```
 
 
 ### Using a summary of your fitted model, explain the relationship between the chosen explanatory variables and the target variable (interpret the model parameters). Explain and interpret the multiple R squared of the model.
@@ -68,9 +91,12 @@ summary(my_model2)
 * The R-square value in the model was 0.19. The variation of dependent variable (exam points) with the independent one (attitude) was 19% and is not quite high. The regression as a whole fits the data quite well.
 
 ### Produce the following diagnostic plots: Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage.
+
+```{r, echo=FALSE}
 my_model <- lm(points ~ attitude + surf + stra, data = new_data)
 par(mfrow=c(2,2)) 
 plot(my_model, which = c(1,2,5))
+```
 
 ### Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots.
 
