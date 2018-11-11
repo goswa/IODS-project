@@ -6,7 +6,7 @@ date: "11-11-2018"
 output: html_document
   
 ---
-
+# week 2 task
 new_data <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt", sep=",", header=TRUE)
 
 * The current dataset is a part of the course 'Introduction to Social Statistics' held by 'Kimmo Vehkalahti' in 'Fall 2014'.The study data were from the years 2014 to 2015 and it aimed to summarize the study behavior and approaches to learning in an international survey.
