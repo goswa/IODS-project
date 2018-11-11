@@ -140,13 +140,13 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">IODS course project</h1>
 <h4 class="author"><em>Shweta Goswami</em></h4>
+<h4 class="date"><em>11-11-2018</em></h4>
 
 </div>
 
 <div id="TOC">
 <ul>
 <li><a href="#about-the-project">About the project</a></li>
-<li><a href="#summarizing-learning-of-2nd-week">Summarizing learning of 2nd week:</a></li>
 </ul>
 </div>
 
@@ -156,13 +156,8 @@ $(document).ready(function () {
 <p><em>Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the ‘Useful links’ page in the mooc area (chapter 1) for instructions.</em></p>
 <p>The whole world is getting <strong>digital</strong>, thus, developing analytical and quantitative skills are essential these days. Being a doctoral student, it is beneficial to have a deep understanding of <em>data wrangling</em> and <em>analysis</em>. The overall insight of the course looks interesting and synchronized. I am looking forward to see new methods arriving in R every week. The course <strong>“Introduction to Open Data Science 2018”</strong> is worth learning.</p>
 <p>The link to my github repository is:</p>
-<p><a href="https://goswa.github.io/IODS-project/" class="uri">https://goswa.github.io/IODS-project/</a></p>
+<p><a href="https://github.com/goswa/IODS-project" class="uri">https://github.com/goswa/IODS-project</a></p>
 <hr />
-</div>
-<div id="summarizing-learning-of-2nd-week" class="section level1">
-<h1>Summarizing learning of 2nd week:</h1>
-<div id="shweta-goswami-08112018-week-2-exercise-data-wrangling-and-analysis" class="section level3">
-<h3>Shweta Goswami, 08/11/2018, Week 2 exercise ‘Data Wrangling and Analysis’</h3>
 <p>new_data &lt;- read.table(“<a href="http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt" class="uri">http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt</a>”, sep=“,”, header=TRUE)</p>
 <ul>
 <li>The current dataset is a part of the course ‘Introduction to Social Statistics’ held by ‘Kimmo Vehkalahti’ in ‘Fall 2014’.The study data were from the years 2014 to 2015 and it aimed to summarize the study behavior and approaches to learning in an international survey.</li>
@@ -171,7 +166,6 @@ $(document).ready(function () {
 <ul>
 <li>Out of the 183 observations of 60 variables, the current dataset has 166 observations of 7 variables. The selected variables for analysis from the raw dataset were gender, age, attitude, deep questions, strategic questions, surface questions and exam points.</li>
 </ul>
-</div>
 <div id="graphical-overview-of-the-data-and-summaries-of-the-variables-in-the-data." class="section level3">
 <h3>Graphical overview of the data and summaries of the variables in the data.</h3>
 <p>library(GGally) library(ggplot2) p &lt;- ggpairs(new_data, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap(“facethist”, bins = 20))) print(p)</p>

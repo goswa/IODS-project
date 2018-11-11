@@ -7,4 +7,4 @@ The whole world is getting **digital**, thus, developing analytical and quantita
 
 The link to my github repository is:
 
-https://goswa.github.io/IODS-project/
+https://github.com/goswa/IODS-project
