@@ -7,6 +7,7 @@ output:
   html_document: default
   pdf_document: default
 ---
+
 # **Student performance including alcohol consumption**
 
 ```{r setup, include=FALSE}
