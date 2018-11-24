@@ -1,15 +1,15 @@
 ---
 title: "Clustering and Classification"
-author: "Shweta Goswami"
-date: "24-11-2018"
-output:
-  html_document: default
-  pdf_document: default
+output: html_document
 ---
 
-# Clustering and classification
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-### **INTRODUCTION**
+
+
+## **INTRODUCTION**
 
 * This analysis is based on *Boston* Housing Values in Suburbs of Boston, United States. The data was taken from the **MASS** package. The data attributes reflect various aspects realted to housing values incuding including per capita crime rate by town, average number of rooms per dwelling, index of accessibility to radial highways etc. More information about data attributes can be found at https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html.
 
@@ -29,19 +29,17 @@ str(Boston)
 
 ```
 
-### **Attribute type**
+### Attribute type
 
 * The data type of each attribute in BOSTON dataset.
 
 
 ```{r, echo=FALSE}
-
 sapply(Boston, class)
-
 ```
 
 
-### **Summaries of the variables** 
+## Summaries of the variables 
 
 ```{r, echo=FALSE}
 
@@ -52,7 +50,7 @@ summary(Boston)
 * The table mentioned above listed a breakdown of each attribute. The numerical attributes are divided into Min, 25th percentile, Median, Mean, 75th percentile, Max. As we can from the table, the attribute varies a lot between min and max ranging from 0.00 to 711. 
 
 
-### **Attribute Corelation.**
+## Graphical overview of the data.
 ```{r, echo=FALSE}
 library(MASS)
 library(corrplot)
@@ -64,13 +62,11 @@ cor_matrix
 
 corrplot(cor_matrix, method="circle", type="upper", cl.pos="b", tl.pos="d", tl.cex = 0.6)
 ```
-
-
-*The table shows the attribute corelation. Any deviation from 0 shows positive or negative corelation. Values above 0.75 shows a high corelation. The positive corelation (0.91) seems to be in between tax (full-value property-tax rate per \$10,000) and rad (index of accessibility to radial highways). On the contrary, negative corelation (-0.77) appears to be in between nox (nitrogen oxides concentration (parts per 10 million) and dis(weighted mean of distances to five Boston employment centres).
+* The table shows the attribute corelation. Any deviation from 0 shows positive or negative corelation. Values above 0.75 shows a high corelation. The positive corelation (0.91) seems to be in between tax (full-value property-tax rate per \$10,000) and rad (index of accessibility to radial highways). On the contrary, negative corelation (-0.77) appears to be in between nox (nitrogen oxides concentration (parts per 10 million) and dis(weighted mean of distances to five Boston employment centres).
 
 * Graphically, the red and blue dot represents negative and positive corelation respectively. The corelation gets strong with the larger dot in the plot. The attributes tax (full-value property-tax rate per \$10,000) and rad (index of accessibility to radial highways) shows strong positive corelation. 
 
-### **Standardizing the dataset and summarizing the scaled data.**
+### Standardizing the dataset and summarizing the scaled data. 
 
 ```{r, echo=FALSE}
 #Standardizing  the dataset and printing out summaries of the scaled data. 
@@ -84,11 +80,9 @@ boston_scaled <- as.data.frame(boston_scaled)
 
 
 ```
-
-
 * Standardizing the dataset involves scaling the original variables to have equal range. As mentioned earlier, the attributes varied a lot ranging from 0.00 to 711. After scaling the original dataset, the attributes now have approximate values with a mean of 0.
 
-### **Creating a categorical variable of the crime rate in the Boston dataset**
+### Creating a categorical variable of the crime rate in the Boston dataset
 
 
 ```{r, echo=FALSE}
@@ -134,8 +128,7 @@ test <- dplyr::select(test, -crime)
 ```
 
 
-### **Linear discriminant analysis**
-
+### Linear discriminant analysis 
 ```{r, echo=FALSE}
 
 
@@ -166,7 +159,7 @@ lda.arrows(lda.fit, myscale = 1)
 
 ```
 
-### **Prediction**
+* 
 
 
 ```{r, echo=FALSE}
@@ -178,9 +171,8 @@ table(correct = correct_classes, predicted = lda.pred$class)
 
 ```
 
-### **K-means algorithm**
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 # access the MASS package
 library(MASS)
 
@@ -209,9 +201,6 @@ summary(dist_man)
 
 ```
 
-
-
-
 ```{r, echo=FALSE}
 
 set.seed(123)
@@ -229,7 +218,6 @@ qplot(x = 1:k_max, y = twcss, geom = 'line')
 
 ```
 
-### **Graphical visualization of clusters**
 
 ```{r, echo=FALSE}
 # k-means clustering
