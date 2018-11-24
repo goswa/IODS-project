@@ -66,7 +66,7 @@ corrplot(cor_matrix, method="circle", type="upper", cl.pos="b", tl.pos="d", tl.c
 ```
 
 
-*The table shows the attribute corelation. Any deviation from 0 shows positive or negative corelation. Values above 0.75 shows a high corelation. The positive corelation (0.91) seems to be in between tax (full-value property-tax rate per \$10,000) and rad (index of accessibility to radial highways). On the contrary, negative corelation (-0.77) appears to be in between nox (nitrogen oxides concentration (parts per 10 million) and dis(weighted mean of distances to five Boston employment centres).
+* The table shows the attribute corelation. Any deviation from 0 shows positive or negative corelation. Values above 0.75 shows a high corelation. The positive corelation (0.91) seems to be in between tax (full-value property-tax rate per \$10,000) and rad (index of accessibility to radial highways). On the contrary, negative corelation (-0.77) appears to be in between nox (nitrogen oxides concentration (parts per 10 million) and dis(weighted mean of distances to five Boston employment centres).
 
 * Graphically, the red and blue dot represents negative and positive corelation respectively. The corelation gets strong with the larger dot in the plot. The attributes tax (full-value property-tax rate per \$10,000) and rad (index of accessibility to radial highways) shows strong positive corelation. 
 
