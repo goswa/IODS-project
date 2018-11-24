@@ -8,7 +8,7 @@ output:
   pdf_document: default
 ---
 
-# **Student performance including alcohol consumption**
+# **Logistic Regression**
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
