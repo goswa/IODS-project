@@ -11,7 +11,7 @@ output:
 
 ### **INTRODUCTION**
 
-* This analysis is based on *Boston* Housing Values in Suburbs of Boston, United States. The data was taken from the **MASS** package. The data attributes reflect various aspects realted to housing values incuding including per capita crime rate by town, average number of rooms per dwelling, index of accessibility to radial highways etc. More information about data attributes can be found at https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html.
+* This analysis is based on *Boston* Housing Values in Suburbs of Boston, United States. The data was taken from the **MASS** package. The data attributes reflect various aspects related to housing values incuding per capita crime rate by town, average number of rooms per dwelling, index of accessibility to radial highways etc. More information about data attributes can be found at https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html.
 
 * There are 506 obs. of  14 variables. Here is a description of the data attributes:
 
@@ -159,6 +159,7 @@ lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "orange", tex 
 classes <- as.numeric(train$crime)
 
 # plot the lda results
+
 plot(lda.fit, dimen = 2, col = classes, pch = classes)
 lda.arrows(lda.fit, myscale = 1)
 
@@ -175,13 +176,13 @@ lda.arrows(lda.fit, myscale = 1)
 
 * Graphical depiction: 
 
-              1.  There are four distinct groups with overlapping between low, med_low ad med_high. The 'high' category in the crime rate shows clear culstering. 
+              1.  There are four distinct groups with overlapping between low, med_low ad med_high. The 'high' category in the crime rate shows clear clustering. 
               
               2. The LDA biplot helps in interpretation with the projections of the points, the angles between the arrows, and the length of the arrows.The arrows in the biplot represent the variables. The longer arrows represents larger variation. 
               
               3. The 'rad' variable shows more variation than other variables. The angle between arrows represents the relationship between measures, for instance, the variables 'rad', 'zn' and 'vox' are not strongly related. 
               
-              4. The histogram shows the separation between groups of crime rate and the overalpping areas. 
+              
 
 ### **Prediction**
 
@@ -199,7 +200,7 @@ table(correct = correct_classes, predicted = lda.pred$class)
 
 * Training a model and then presenting it with the test data to make predictions. The model appears to be accurate with the category "high" crime rate. The 'high' crime rate is clustered in the right middle of the biplot.
 
-* Based on the earlier plots, low, med_low and med_high observations seems to be miscategorized. 
+* Based on the earlier plot, low, med_low and med_high observations seems to be miscategorized. 
 
 * Overall, the model seems to perform well with the testing set.
 
@@ -265,7 +266,7 @@ ggplot(elbow, aes(x = 1:k_max, y = twcss)) +
 
 * It seems from the graph that the optimal k is two where the curve starts to have a diminishing return. 
 
-### ** K means algorithm with two clusters and graphical visualization of clusters**
+### **K means algorithm with two clusters and graphical visualization of clusters**
 
 ```{r, echo=FALSE}
 # k-means clustering
@@ -282,11 +283,50 @@ clusplot(boston_scaled, km$cluster, color=TRUE, shade=TRUE,
 library(factoextra)
 fviz_cluster(km, data = boston_scaled, ellipse.type = "norm", geom = "point",
              stand = FALSE) + theme_bw()
+
 ```
 
 * As mentioned earlier, the optimal k is 2, so running the algorithm again with k equals to 2. 
 
 * The first principle component accounts for 46.8% of the variation. The second principle component accounts for 11.8% of the variation. In total, they account for 58.6% of the variation. The first cluster are plotted with the red and the second with blue color. The largesr red circle and blue triangle represent cluster means. 
+
+### **For bonus point**
+```{r, echo=FALSE}
+library (MASS)
+boston_scaled <- scale(Boston)
+boston_scaled <- as.data.frame(boston_scaled)
+km <-kmeans(Boston, centers = 4)
+
+
+# linear discriminant analysis
+lda.fit <- lda( km$cluster~ ., data=boston_scaled)
+
+# print the lda.fit object
+lda.fit
+
+# the function for lda biplot arrows
+lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "orange", tex = 0.75, choices = c(1,2)){
+  heads <- coef(x)
+  arrows(x0 = 0, y0 = 0, 
+         x1 = myscale * heads[,choices[1]], 
+         y1 = myscale * heads[,choices[2]], col=color, length = arrow_heads)
+  text(myscale * heads[,choices], labels = row.names(heads), 
+       cex = tex, col=color, pos=3)
+}
+
+
+# plot the lda results
+plot(lda.fit, dimen = 2, col = classes, pch = classes)
+lda.arrows(lda.fit, myscale = 1)
+
+library(factoextra)
+fviz_cluster(km, data = boston_scaled, ellipse.type = "norm", geom = "point",
+             stand = FALSE) + theme_bw()
+
+
+```
+
+* The tax, rad and black seems to be the most influential variables in the LDA plot. 
 
 ### **References**
 
