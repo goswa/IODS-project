@@ -266,7 +266,7 @@ ggplot(elbow, aes(x = 1:k_max, y = twcss)) +
 
 * It seems from the graph that the optimal k is two where the curve starts to have a diminishing return. 
 
-### ** K means algorithm with two clusters and graphical visualization of clusters**
+### **K means algorithm with two clusters and graphical visualization of clusters**
 
 ```{r, echo=FALSE}
 # k-means clustering
@@ -289,6 +289,44 @@ fviz_cluster(km, data = boston_scaled, ellipse.type = "norm", geom = "point",
 * As mentioned earlier, the optimal k is 2, so running the algorithm again with k equals to 2. 
 
 * The first principle component accounts for 46.8% of the variation. The second principle component accounts for 11.8% of the variation. In total, they account for 58.6% of the variation. The first cluster are plotted with the red and the second with blue color. The largesr red circle and blue triangle represent cluster means. 
+
+### **For bonus point**
+```{r, echo=FALSE}
+library (MASS)
+boston_scaled <- scale(Boston)
+boston_scaled <- as.data.frame(boston_scaled)
+km <-kmeans(Boston, centers = 4)
+
+
+# linear discriminant analysis
+lda.fit <- lda( km$cluster~ ., data=boston_scaled)
+
+# print the lda.fit object
+lda.fit
+
+# the function for lda biplot arrows
+lda.arrows <- function(x, myscale = 1, arrow_heads = 0.1, color = "orange", tex = 0.75, choices = c(1,2)){
+  heads <- coef(x)
+  arrows(x0 = 0, y0 = 0, 
+         x1 = myscale * heads[,choices[1]], 
+         y1 = myscale * heads[,choices[2]], col=color, length = arrow_heads)
+  text(myscale * heads[,choices], labels = row.names(heads), 
+       cex = tex, col=color, pos=3)
+}
+
+
+# plot the lda results
+plot(lda.fit, dimen = 2, col = classes, pch = classes)
+lda.arrows(lda.fit, myscale = 1)
+
+library(factoextra)
+fviz_cluster(km, data = boston_scaled, ellipse.type = "norm", geom = "point",
+             stand = FALSE) + theme_bw()
+
+
+```
+
+* The tax, rad and black seems to be the most influential variables in the LDA plot. 
 
 ### **References**
 
