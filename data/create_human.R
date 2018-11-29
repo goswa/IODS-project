@@ -87,7 +87,8 @@ str(human)
 # Gross National Income per capita, Life expectancy at birth, Maternal mortality ratio,  Adolescent birth rate etc. 
 # The Gender Inequality Index comprises of empowerment indicators like:
 # Proportion of males and females with at least secondary education, Proportion of females in the labour force etc. 
-# Two new variables have been added in the "Gender inequality" data. The first one is the the ratio of Female and Male populations with secondary education in each country. (i.e. edu2F / edu2M). 
+# Two new variables have been added in the "Gender inequality" data. 
+# The first one is the the ratio of Female and Male populations with secondary education in each country. (i.e. edu2F / edu2M). 
 # The second one is the ratio of labour force participation of females and males in each country (i.e. labF / labM).
 # The dataset has 195 observations of 19 variables.
 # More information about the dataset can be found at http://hdr.undp.org/en/content/human-development-index-hdi
