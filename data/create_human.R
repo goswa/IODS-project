@@ -58,7 +58,6 @@ colnames(gii)[10] <- "Labo.M"
 colnames(gii)
 
 # Mutate the "Gender inequality" data and create two new variables. 
-# The first one should be the ratio of Female and Male populations with secondary education in each country. (i.e. edu2F / edu2M). The second new variable should be the ratio of labour force participation of females and males in each country (i.e. labF / labM)
 
 library(dplyr)
 library(ggplot2)
@@ -81,8 +80,15 @@ glimpse(human)
 dim(human)
 str(human)
 
-# The data used in analysis was based on human development report by United Nations Development Programme. The Human Development and Gender Inequality indices will be analysed. The dataset has combined indicators from different parts of the world. The Human development index comprises of health indicators, for instance, Gross National Income per capita, Life expectancy at birth, Maternal mortality ratio,  Adolescent birth rate etc. The Gender Inequality Index comprises of empowerment indicators like Proportion of males and females with at least secondary education, Proportion of females in the labour force etc. 
-# Two new variables have been added in the "Gender inequality" data. The first one is the the ratio of Female and Male populations with secondary education in each country. (i.e. edu2F / edu2M). The second one is the ratio of labour force participation of females and males in each country (i.e. labF / labM).
+# The data used in analysis was based on human development report by United Nations Development Programme. 
+# The Human Development and Gender Inequality indices will be analysed. 
+# The dataset has combined indicators from different parts of the world. 
+# The Human development index comprises of health indicators, for instance: 
+# Gross National Income per capita, Life expectancy at birth, Maternal mortality ratio,  Adolescent birth rate etc. 
+# The Gender Inequality Index comprises of empowerment indicators like:
+# Proportion of males and females with at least secondary education, Proportion of females in the labour force etc. 
+# Two new variables have been added in the "Gender inequality" data. The first one is the the ratio of Female and Male populations with secondary education in each country. (i.e. edu2F / edu2M). 
+# The second one is the ratio of labour force participation of females and males in each country (i.e. labF / labM).
 # The dataset has 195 observations of 19 variables.
 # More information about the dataset can be found at http://hdr.undp.org/en/content/human-development-index-hdi
 
