@@ -1,0 +1,267 @@
+---
+title: "Dimensionality Reduction Technique"
+author: "Shweta Goswami"
+date: "1-12-2018"
+output:
+  html_document: default
+---
+
+# Dimensionality Reduction Technique
+
+### **Data Overview**
+
+```{r, echo=FALSE}
+human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt", sep  =",", header = T)
+str(human)
+dim(human)
+```
+
+* The data used in analysis was based on human development report by United Nations Development Programme. The Human Development and Gender Inequality indices will be analysed. The original dataset has combined indicators from different parts of the world. Out of them, some variables are selected for the analysis. The indicators of Human development index are Gross National Income per capita, Life expectancy at birth, Maternal mortality ratio, Adolescent birth rate and Expected years of schooling. The indicators for Gender Inequality Index are are Percetange of female representatives in parliament, Proportion of males and females with at least secondary education and Proportion of males and females in the labour force. The proportion of males and females in education and labor force variables has been modified. The first one is the the ratio of Female and Male populations with secondary education in each country. (i.e. edu2F / edu2M). The second one is the ratio of labour force participation of females and males in each country (i.e. labF / labM).
+
+* The current dataset has 155 observations of 8 variables.
+
+* More information about the dataset can be found at http://hdr.undp.org/en/content/human-development-index-hdi
+
+### **Summary of the data**
+
+```{r, echo=FALSE}
+summary(human)
+```
+
+
+
+### **Graphical overview of the data and relationship between variables**
+
+```{r, echo=FALSE}
+
+library(GGally)
+ggpairs(human)
+
+library(corrplot)
+library(tidyr)
+cor_matrix<-cor(human) %>% round(digits = 2)
+cor_matrix
+
+```
+
+
+**Graphical Overview using corrplot**
+
+```{r, echo=FALSE}
+library(corrplot)
+corrplot(cor_matrix)
+corrplot(cor_matrix, method="circle", type="upper", cl.pos="b", tl.pos="d", tl.cex = 0.6)
+```
+
+### **Principal component analysis (PCA) on the non-standardized human data.**
+
+```{r, echo=FALSE}
+pca_human <- prcomp(human)
+biplot(pca_human, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
+```
+
+### **Principal component analysis (PCA) and summary of standardized human data.**
+
+```{r, echo=FALSE}
+
+# standardize the variables
+human_std <- scale(human)
+
+summary(human_std)
+
+# perform principal component analysis (with the SVD method)
+pca_human <- prcomp(human_std)
+
+s <- summary(pca_human)
+s
+
+# rounded percentages of variance captured by each PC
+pca_pr <- round(100*s$importance[2,], digits = 1) 
+
+# print out the percentages of variance
+pca_pr
+
+# create object pc_lab to be used as axis labels
+pc_lab <- paste0(names(pca_pr), " (", pca_pr, "%)")
+
+# draw a biplot
+biplot(pca_human, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = "Health and knowledge", ylab ="Empowerment")
+
+
+```
+
+**Biplot using Factoextra**
+
+```{r, echo=FALSE}
+library(factoextra)
+fviz_pca_biplot(pca_human, label ="var")
+```
+
+
+**Cos2 : quality of the representation for variables on the factor map**
+
+```{r}
+fviz_pca_var(pca_human, col.var="cos2") +
+scale_color_gradient2(low="white", mid="blue", 
+                    high="red", midpoint=0.5) + theme_minimal()
+```
+
+
+**Selecting the top 3 contributing variables**
+
+```{r, echo=FALSE}
+library(factoextra)
+fviz_pca_var(pca_human, select.var = list(contrib = 3))
+
+
+
+```
+
+### **Personal interpretations of the first two principal component dimensions based on the biplot**
+
+### **Tea dataset**
+
+```{r, echo=FALSE}
+
+library(FactoMineR)
+data(tea)
+
+# column names to keep in the dataset
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+
+# select the 'keep_columns' to create a new dataset
+library(dplyr)
+tea_time <- dplyr::select(tea, dplyr::one_of(keep_columns))
+
+# look at the summaries and structure of the data
+summary(tea_time)
+str(tea_time)
+
+```
+
+
+**Visualize the dataset**
+
+```{r, echo=FALSE}
+# visualize the dataset
+
+library(ggplot2)
+gather(tea_time) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar(fill = "green", colour = "red") + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+```
+
+
+### **Multiple Correspondence Analysis on the tea data**
+
+```{r, echo=FALSE}
+# multiple correspondence analysis
+mca <- MCA(tea_time, graph = FALSE)
+
+# summary of the model
+summary(mca)
+
+# visualize MCA
+plot(mca, invisible=c("ind"), habillage = "quali")
+
+
+```
+
+
+**Visualize MCA**
+
+```{r, echo=FALSE}
+
+# visualize MCA
+plot(mca, invisible=c("ind"), habillage = "quali")
+
+
+```
+
+```{r, echo=FALSE}
+fviz_mca_var(mca, choice = "mca.cor", 
+            repel = TRUE, # Avoid text overlapping (slow)
+            ggtheme = theme_minimal())
+             
+```
+
+
+* To visualize the correlation between teaset data variables and MCA principal dimensions. The plot helps in finding variables that are most corelated with MCA principle dimension. It seems that the sugar are most correlated with dimension 1 and the lunch with dimension 2.
+
+
+**Use the function fviz_mca_var() to visualize variable categories**
+
+```{r, echo=FALSE}
+fviz_mca_var(mca, 
+             repel = TRUE, 
+             ggtheme = theme_minimal())
+```
+
+* The plot shows the variable to variable interaction. The variables that has similar profiles are placed together, for instance, milk, earl grey and sugar shares the similar profiles, thus, placed together. The variables who are negatively correlated are placed on the opposite quadrants in the plot.
+
+
+**Color by cos2 values: quality on the factor map**
+
+```{r, echo=FALSE}
+# Color by cos2 values: quality on the factor map
+fviz_mca_var(mca, col.var = "cos2",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
+             repel = TRUE, # Avoid text overlapping
+             ggtheme = theme_minimal())
+```
+
+
+
+
+**Changing the transparency by cos2 values**
+
+```{r, echo=FALSE}
+# Change the transparency by cos2 values
+fviz_mca_var(mca, alpha.var="cos2",
+             repel = TRUE,
+             ggtheme = theme_minimal())
+```
+
+**Contributions of rows to dimension 1 and dimension 2**
+
+```{r, echo=FALSE}
+# Contributions of rows to dimension 1
+fviz_contrib(mca, choice = "var", axes = 1, top = 15)
+# Contributions of rows to dimension 2
+fviz_contrib(mca, choice = "var", axes = 2, top = 15)
+```
+
+
+
+**The most important variable categories highlighted in the scatter plot**
+
+```{r, echo=FALSE}
+# The most important (or, contributing) variable categories can be highlighted on the scatter plot as follow:
+fviz_mca_var(mca, col.var = "contrib",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
+             repel = TRUE, # avoid text overlapping (slow)
+             ggtheme = theme_minimal()
+             )
+```
+
+
+
+**Biplot of variable analysis**
+
+```{r, echo=FALSE}
+
+library(factoextra)
+fviz_mca_biplot(mca, label ="var")
+
+```
+
+
+
+
+
+**Top 5 contributing variable categories in the tea dataset**
+
+```{r, echo=FALSE}
+# top 5 contributing variable categories
+fviz_mca_biplot(mca,  select.var = list(contrib = 5),
+               ggtheme = theme_minimal())
+```
+
