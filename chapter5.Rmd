@@ -151,7 +151,7 @@ biplot(pca_human, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = "Healt
 
 * The caption for PC2 can be 'Women Empowerment'as second dimension corresponds to percetange of female representatives in parliament and labour force participation rate, female-male ratio.
 
-* Health & knowledge and women empowerment are corelated, the countries where women are more empowered seems to have more life expectancy and less maternal mortality rate.
+* Health & knowledge and women empowerment are corelated, the countries where women are more empowered seems to have more life expectancy and less maternal mortality ratio.
 
 **i. Cos2 : quality of the representation for variables on the factor map**
 
