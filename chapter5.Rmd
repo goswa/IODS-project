@@ -136,7 +136,7 @@ fviz_screeplot(pca_human, ncp=8)
 
 **g. Interpretation of biplot of standardized datatset:**
 
-* The biplot shows the first two principal component scores. Maternal mortality rate and adolescent birth rate seems to be closely related and pointing towards the least development countries, for instance, Sierra Leone. Similarly, percetange of female representatives in parliament and ratio of female-male shares in labor force participation appears to be closely related and pointing towards countries like Tanzania. Expected years of schooling, Life expectancy at birth, ratio of female-male shares in secondary education are closely related and pointing towards developed countries.
+* The biplot shows the first two principal component scores. Maternal mortality rate and adolescent birth rate seems to be closely related and pointing towards the least development countries, for instance, Sierra Leone. Similarly, percetange of female representatives in parliament and ratio of female-male shares in labor force participation appears to be closely related and pointing towards countries like Tanzania. Expected years of schooling, Life expectancy at birth, ratio of female-male shares in secondary education appears to be closely related and pointing towards developed countries.
 
 **h. Caption (replacing PC1 and PC2) of the standardized plot**
 
@@ -147,11 +147,11 @@ biplot(pca_human, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = "Healt
 
 ```
 
-* Since the PC1 corresponds to maternal mortality rate, the Caption for PC1 can be "Health". 
+* Since the PC1 corresponds to life expectancy and maternal mortality rate, the Caption for PC1 can be "Health and Knowledge". 
 
-* The caption for PC2 can be 'Knowledge'as second dimension corresponds to life expectancy and expected years of schooling.
+* The caption for PC2 can be 'Women Empowerment'as second dimension corresponds to percetange of female representatives in parliament and labour force participation rate, female-male ratio.
 
-* Health and knowledge are both corelated, the countries where women are more educated has more life expectancy and less maternal mortality rate.
+* Health & knowledge and women empowerment are corelated, the countries where women are more empowered seems to have more life expectancy and less maternal mortality rate.
 
 **i. Cos2 : quality of the representation for variables on the factor map**
 
