@@ -8,7 +8,7 @@ output:
 
 # Dimensionality Reduction Technique
 
-### **Data Overview**
+### **1. Data Overview**
 
 ```{r, echo=FALSE}
 human <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt", sep  =",", header = T)
@@ -22,45 +22,65 @@ dim(human)
 
 * More information about the dataset can be found at http://hdr.undp.org/en/content/human-development-index-hdi
 
-### **Summary of the data**
+**a. Summary of the data**
 
 ```{r, echo=FALSE}
 summary(human)
 ```
 
+* The minimum and maximum value for ratio of female to male rates with at least secondary education are 0.17 and 1.5 resp. The minimum and maximum value of Labour force participation rate, female-male ratio are 0.18 and 1.04 resp. The minimum value of female-male shares in secondary education and labor force shows the limitations of women to access the basic rights to have atleast secondary education and employment in some of the countries in the current dataset. The maximum number of maternal mortality rate is 1100 (deaths per 100,000 live births). The minimum value of GNI per capita is 581 which seems to be very low in terms of nation and human development.
 
 
-### **Graphical overview of the data and relationship between variables**
+### **2. Graphical overview of the data and relationship between variables**
+
+**a. Graphical Overview using corrplot**
 
 ```{r, echo=FALSE}
-
-library(GGally)
-ggpairs(human)
-
 library(corrplot)
 library(tidyr)
 cor_matrix<-cor(human) %>% round(digits = 2)
-cor_matrix
-
-```
 
 
-**Graphical Overview using corrplot**
-
-```{r, echo=FALSE}
 library(corrplot)
-corrplot(cor_matrix)
+# Correlation plot
+library(GGally)
+GGally::ggcorr(cor_matrix, palette = "RdBu", label = TRUE)
 corrplot(cor_matrix, method="circle", type="upper", cl.pos="b", tl.pos="d", tl.cex = 0.6)
 ```
 
-### **Principal component analysis (PCA) on the non-standardized human data.**
+* There seems to be perfect negative corelation (one variable increases as the other decreases) between ratio of female to male rates with at least secondary education and maternal mortality rate. Similarly, negative corelation is present with the variables expected years of schooling and maternal mortality rate. The positive corelation is found between ratio of female to male rates with at least secondary education and life expectancy. Women who are more educated seems to have high life expectancy.
+
+### **3. Principal component analysis (PCA)**
+
+**a. Principal component analysis (PCA) on the non-standardized human data**
 
 ```{r, echo=FALSE}
 pca_human <- prcomp(human)
-biplot(pca_human, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
+pca_human
+summary(pca_human)
+
 ```
 
-### **Principal component analysis (PCA) and summary of standardized human data.**
+
+**b. Biplot of non-standardized human data**
+
+```{r, echo=FALSE}
+biplot(pca_human, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
+
+library(factoextra)
+fviz_pca_biplot(pca_human, label ="var")
+```
+
+**c. Screeplot of non-standardized human data**
+
+```{r, echo=FALSE}
+library("factoextra")
+fviz_screeplot(pca_human, ncp=8)
+```
+
+
+
+**d. Principal component analysis (PCA) of standardized human data.**
 
 ```{r, echo=FALSE}
 
@@ -84,50 +104,125 @@ pca_pr
 # create object pc_lab to be used as axis labels
 pc_lab <- paste0(names(pca_pr), " (", pca_pr, "%)")
 
-# draw a biplot
-biplot(pca_human, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = "Health and knowledge", ylab ="Empowerment")
+
 
 
 ```
 
-**Biplot using Factoextra**
+
+**e. Biplot and screeplot of standardized human data**
 
 ```{r, echo=FALSE}
-library(factoextra)
-fviz_pca_biplot(pca_human, label ="var")
+# biplot
+fviz_mca_var(pca_human)
+
+library("factoextra")
+fviz_screeplot(pca_human, ncp=8)
 ```
 
+**f. Comparison of PCA output of standardized and non-standardized dataset**
 
-**Cos2 : quality of the representation for variables on the factor map**
+* Principal Component analysis is useful when dealing with 3 or higher dimensional data. It gives low dimensional set of features (2D) from a high dimensional data. PCA works on covariance matrix and, thus, standardizing data is essential to perform it. The biplot of unstandardized dataset seems very tedious, only the variable GNI pointed towards the left side of the plot (PC2).
 
-```{r}
+* The PCA result gives 8 principal components. The number of principal components in rotation is equal to number of variables in the dataset i.e. 8.
+
+* The results of both PCA analysis (with and without standardizing) are different. The biplot looks more readable after standardizing the dataset. 
+
+* The proportion of variance in the unstandardized dataset seems very low, for e.g,  9.999e-01 in PC1, 0.0001 in PC2and so on. The summary also gives cumulative proportion of the principal components.
+
+* On the contrary, the PCA output of standardized dataset explains 54% of variance in PC1 and PC2 explains 16% so on. 
+
+* The screeplot of non-standardized shows that 100% of the variances contained in the dataset are retained by the first principal component whereas in the standarized dataset, 70% of the variances are retained by the first two principle components.
+
+**g. Interpretation of biplot of standardized datatset:**
+
+* The biplot shows the first two principal component scores. Maternal mortality rate and adolescent birth rate seems to be closely related and pointing towards the least development countries, for instance, Sierra Leone. Similarly, percetange of female representatives in parliament and ratio of female-male shares in labor force participation appears to be closely related and pointing towards countries like Tanzania. Expected years of schooling, Life expectancy at birth, ratio of female-male shares in secondary education are closely related and pointing towards developed countries.
+
+**h. Caption (replacing PC1 and PC2) of the standardized plot**
+
+
+```{r, echo=FALSE}
+# draw a biplot
+biplot(pca_human, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = "Health and Knowledge", ylab ="Women Empowerment")
+
+```
+
+* Since the PC1 corresponds to maternal mortality rate, the Caption for PC1 can be "Health". 
+
+* The caption for PC2 can be 'Knowledge'as second dimension corresponds to life expectancy and expected years of schooling.
+
+* Health and knowledge are both corelated, the countries where women are more educated has more life expectancy and less maternal mortality rate.
+
+**i. Cos2 : quality of the representation for variables on the factor map**
+
+```{r, echo=FALSE}
 fviz_pca_var(pca_human, col.var="cos2") +
 scale_color_gradient2(low="white", mid="blue", 
                     high="red", midpoint=0.5) + theme_minimal()
+
 ```
 
+* Showing the most contributing indicators in explaining the variations retained by the principal components.
 
-**Selecting the top 3 contributing variables**
+### **4. Personal interpretations of the first two principal component dimensions based on the biplot**
+
+**a. Selecting the top 3 contributing variables**
 
 ```{r, echo=FALSE}
 library(factoextra)
 fviz_pca_var(pca_human, select.var = list(contrib = 3))
 
-
-
 ```
 
-### **Personal interpretations of the first two principal component dimensions based on the biplot**
 
-### **Tea dataset**
+**b. Contributions of variables on PC1**
+
+
+```{r, echo=FALSE}
+fviz_pca_contrib(pca_human, choice = "var", axes = 1)
+```
+
+
+
+**c. Contributions of variables on PC2**
+```{r, echo=FALSE}
+fviz_pca_contrib(pca_human, choice = "var", axes = 2)
+```
+
+
+**d. Interpretation of the above mentioned plots**
+
+* The variables that are correlated with Dim1 and Dim2 are the most relevant in explaining the variability.
+
+* The most important contributing variables in the data set are Maternal mortality ratio, Life expectancy at birth and Expected years of schooling as shown above.
+
+* The red line on the plots above shows the expected average contribution. The variables present in the dataset larger than this cutoff can be considered important in contributing to the principal component.
+
+* The first principal component corresponds to a measure of Life expectancy at birth and Maternal mortality rate.  Similarly, it can be said that the second component corresponds to a measure of percetange of female representatives in parliament and labour force participation rate, female-male ratio. 
+
+
+
+### **5. Tea dataset**
 
 ```{r, echo=FALSE}
 
 library(FactoMineR)
 data(tea)
+str(tea)
+dim(tea)
 
+```
+
+**a. Structure and the dimensions of the data**
+
+* The tea dataset has been loaded from the package Factominer. The original dataset has 300 obs. of  36 variables. The variables included in the dataset are breakfast, teatime, always, home, work, price, diuretic etc.
+
+* 300 individuals who participated in the survey were asked about how they drink tea (18 questions), what are their product's perception (12 questions) and some personal details (4 questions).
+
+
+```{r, echo=FALSE}
 # column names to keep in the dataset
-keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+keep_columns <- c("Tea", "How", "healthy", "sugar", "where", "lunch")
 
 # select the 'keep_columns' to create a new dataset
 library(dplyr)
@@ -136,11 +231,13 @@ tea_time <- dplyr::select(tea, dplyr::one_of(keep_columns))
 # look at the summaries and structure of the data
 summary(tea_time)
 str(tea_time)
-
 ```
 
+* For the current analysis, some of the variables from the tea dataset has been selected which are 'tea', 'How', 'healthy', 'sugar', 'where' and 'lunch'. All the variables are categorical. 
 
-**Visualize the dataset**
+* It has 300 obs. of  6 variables. 
+
+**b. Visualize the dataset**
 
 ```{r, echo=FALSE}
 # visualize the dataset
@@ -150,7 +247,21 @@ gather(tea_time) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + g
 ```
 
 
-### **Multiple Correspondence Analysis on the tea data**
+Most of the tea consumers were: 
+
+* Healthy
+
+* Preferred Earl grey tea 
+
+* Preferred tea alone without any addition of milk, lemon and other stuff
+
+* Preferred sipping tea other than the lunch time 
+
+* Preferred chain store. 
+      
+     
+
+### **6. Multiple Correspondence Analysis on the tea data**
 
 ```{r, echo=FALSE}
 # multiple correspondence analysis
@@ -159,14 +270,12 @@ mca <- MCA(tea_time, graph = FALSE)
 # summary of the model
 summary(mca)
 
-# visualize MCA
-plot(mca, invisible=c("ind"), habillage = "quali")
-
 
 ```
 
-
-**Visualize MCA**
+ 
+ 
+**a. Visualize MCA**
 
 ```{r, echo=FALSE}
 
@@ -175,6 +284,19 @@ plot(mca, invisible=c("ind"), habillage = "quali")
 
 
 ```
+
+* The multiple correspondence analysis helps in summarizing and visualizing dataset containing more than two categorical variables. 
+
+* Dim 1 shows 14% of the variation and Dim 2 shows 13% of the variation which is very low. 
+
+* The intersection of two dashed lines is the origin. The far the variables are from the origin, the more discriminating they are, for instance, other is a highly discriminating attribute. 
+
+* The variables closer to the origin are less discriminating, For instance, chain store and sugar probably shares similar repo.
+
+* As shown in the plot, the earl grey consumers who put sugar in their tea seems to be unhealthy, whereas the consumers who preferred sipping black tea other than the lunch time and without sugar seems to be healthy.
+
+
+**b. Using the function fviz_mca_var() to visualize variable categories**
 
 ```{r, echo=FALSE}
 fviz_mca_var(mca, choice = "mca.cor", 
@@ -184,10 +306,10 @@ fviz_mca_var(mca, choice = "mca.cor",
 ```
 
 
-* To visualize the correlation between teaset data variables and MCA principal dimensions. The plot helps in finding variables that are most corelated with MCA principle dimension. It seems that the sugar are most correlated with dimension 1 and the lunch with dimension 2.
+* To visualize the correlation between teaset data variables and MCA principal dimensions. The plot helps in finding variables that are most corelated with MCA principle dimension. It seems that the healthy are most correlated with dimension 1 and the lunch probably with dimension 2.
 
 
-**Use the function fviz_mca_var() to visualize variable categories**
+
 
 ```{r, echo=FALSE}
 fviz_mca_var(mca, 
@@ -198,7 +320,7 @@ fviz_mca_var(mca,
 * The plot shows the variable to variable interaction. The variables that has similar profiles are placed together, for instance, milk, earl grey and sugar shares the similar profiles, thus, placed together. The variables who are negatively correlated are placed on the opposite quadrants in the plot.
 
 
-**Color by cos2 values: quality on the factor map**
+**c. Color by cos2 values: quality on the factor map**
 
 ```{r, echo=FALSE}
 # Color by cos2 values: quality on the factor map
@@ -208,10 +330,10 @@ fviz_mca_var(mca, col.var = "cos2",
              ggtheme = theme_minimal())
 ```
 
+* Cos2 measures the degree of association between variable categories and a particular axis. The variable categories with high cos2 values are colored in red. The variable early grey and chain store + tea shop seems to have high cos2 values. 
 
 
-
-**Changing the transparency by cos2 values**
+**d. Changing the transparency by cos2 values**
 
 ```{r, echo=FALSE}
 # Change the transparency by cos2 values
@@ -220,7 +342,10 @@ fviz_mca_var(mca, alpha.var="cos2",
              ggtheme = theme_minimal())
 ```
 
-**Contributions of rows to dimension 1 and dimension 2**
+* Similar to the previous plot but the transparency changes with decreasing cos2 values. The triangle is red with early grey and chain store + tea shop and fading with the variables lemon, milk, healthy etc.
+
+
+**e. Contributions of rows to dimension 1 and dimension 2**
 
 ```{r, echo=FALSE}
 # Contributions of rows to dimension 1
@@ -229,9 +354,12 @@ fviz_contrib(mca, choice = "var", axes = 1, top = 15)
 fviz_contrib(mca, choice = "var", axes = 2, top = 15)
 ```
 
+* The red dashed line as mentioned previously on the graph shows the expected average value when the contributions are consistent.
 
+* The categories other and black tea contribute the most to Dim 1.
+* Chain store + tea shop and green tea contribute the most to Dim 2.
 
-**The most important variable categories highlighted in the scatter plot**
+**f. The most important variable categories highlighted in the scatter plot**
 
 ```{r, echo=FALSE}
 # The most important (or, contributing) variable categories can be highlighted on the scatter plot as follow:
@@ -242,9 +370,9 @@ fviz_mca_var(mca, col.var = "contrib",
              )
 ```
 
+* The categories chain store + tea shop and other correspond to positive pole of Dim1 and sugar and earl grey corresponds to negative pole of Dim1.
 
-
-**Biplot of variable analysis**
+**g. Biplot of variable analysis**
 
 ```{r, echo=FALSE}
 
@@ -254,14 +382,26 @@ fviz_mca_biplot(mca, label ="var")
 ```
 
 
+* Rows are represented by blue points and columns by red triangles. The rows and columns here corresponds to individuals and variable categories resp. The distance between them measure their similarity. The row and column points close to each other shares similar profile, for instance, the variable 'chain store' and 'alone' seems to share similar profile.
 
 
-
-**Top 5 contributing variable categories in the tea dataset**
+**h. Top 2 contributing variable categories in the tea dataset**
 
 ```{r, echo=FALSE}
 # top 5 contributing variable categories
-fviz_mca_biplot(mca,  select.var = list(contrib = 5),
+fviz_mca_biplot(mca,  select.var = list(contrib = 2),
                ggtheme = theme_minimal())
 ```
 
+* The plot above displays the top 2 contributing variable categories in the tea dataset which are chain store + tea shop and others.
+
+
+### **References**
+
+http://hdr.undp.org/en/content/human-development-index-hdi
+
+http://hdr.undp.org/sites/default/files/hdr2015_technical_notes.pdf
+
+https://raw.githubusercontent.com/TuomoNieminen/Helsinki-Open-Data-Science/master/datasets/human_meta.txt
+
+http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/114-mca-multiple-correspondence-analysis-in-r-essentials/
