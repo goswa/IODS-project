@@ -30,8 +30,7 @@ glimpse(RATS)
 # Brief summary of BPRS and RATS datasets
 # The dataset BPRS has 40 obs. of  11 variables
 # The dataset RATS has 16 obs. of  13 variables
-# As obvious from the variables structure, the wide form of data presented response variable 
-# which is measured on each subject on several different occasions in a single row.
+# As obvious from the variables structure, the wide form of data presented response variable which is measured on each subject on several different occasions in a single row.
 # So, the wide form means presenting data horizontally. 
 
 #Converting the categorical variables of both data sets to factors. 
