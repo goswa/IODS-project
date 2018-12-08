@@ -97,7 +97,7 @@ glimpse(RATSL)
 # the long form of RATS has 176 obs. of  5 variables
 
 
-# Saving the modified data set to the 'data' folder using write.csv function
-write.csv(BPRSL, file = "BPRSL.Rdata")
-write.csv(RATSL, file = "RATSL.Rdata")
+# Saving the modified data set to the 'data' folder 
+save(BPRSL, file = "BPRSL.RData")
+save(RATSL, file = "RATSL.RData")
 
