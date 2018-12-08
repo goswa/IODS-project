@@ -27,6 +27,10 @@ library(dplyr)
 glimpse(BPRS)
 glimpse(RATS)
 
+#Saving the original data to the data folder
+write.csv(BPRS, file = "BPRS.csv", row.names=FALSE)
+write.csv(RATS, file = "RATS.csv", row.names=FALSE)
+
 # Brief summary of BPRS and RATS datasets
 # The dataset BPRS has 40 obs. of  11 variables
 # The dataset RATS has 16 obs. of  13 variables
@@ -95,6 +99,8 @@ glimpse(RATSL)
 # the long form of BPRS has 360 obs. of  5 variables
 # the wide form data of RATS has 16 obs. of  13 variables
 # the long form of RATS has 176 obs. of  5 variables
+
+
 
 
 # Saving the modified data set to the 'data' folder 
