@@ -22,6 +22,7 @@ BPRS <- read_csv("RATS.csv")
 
 ```{r, echo=FALSE}
 library(dplyr)
+head(RATSL)
 summary(RATSL)
 glimpse(RATSL)
 ```
@@ -73,7 +74,6 @@ ggplot(RATSL, aes(x = Time, y = stdweight, linetype = ID)) +
 ```{r, echo=FALSE}
 
 
-# Number of weeks, baseline (week 0) included
 n <- RATSL$Time %>% unique() %>% length()
 
 # Summary data with mean and standard error of bprs by treatment and week 
@@ -130,7 +130,7 @@ ggplot(RATSL8S1, aes(x = Group, y = mean)) +
 
 
 
-### **Two-sample t-test and Analysis of Variance**
+### **Analysis of Variance**
 
 ```{r, echo=FALSE}
 # # Fit the linear model with the mean as the response 
@@ -165,7 +165,7 @@ glimpse(BPRSL)
 ```
 
 
-### **Plotting the BPRSL data, identifying the observations in each group**
+### **Plotting the BPRSL data**
 
 ```{r, echo=FALSE}
 
@@ -269,11 +269,11 @@ ggplot(BPRSL, aes(x = week, y = bprs, group = treatment)) +
 # Create a vector of the fitted values
 Fitted <- fitted(BPRS_ref2)
 
-# Create a new column fitted to RATSL
+# Create a new column fitted to BPRSL
 BPRSL <- BPRSL %>%
   mutate(Fitted)
 
-# draw the plot of RATSL
+# draw the plot of BPRSL
 ggplot(BPRSL, aes(x = week, y = Fitted)) +
   geom_line(aes(linetype = treatment)) +
   scale_x_continuous(name = "weeks") +
