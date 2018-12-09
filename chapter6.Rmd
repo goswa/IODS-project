@@ -9,8 +9,9 @@ output: html_document
 
 According to the instructions, the dataset has been swapped. The current analysis includes Chapter 8 of MABS using the RATS data and Chapter 9 of MABS using the BPRS data. 
 
-### **Interpretation of the wide and long form data:**
-If we compare wide and long form data, the wide form combines one of the keys with the value variables and their columns represent groups. The wide data has multiple columns for outcomes as we can see in RATS and BPRS dataset. The long form data presents each subject's response in multiple rows and every row shows a response/observation that belongs to a particular variable. In simple terms, the long form represents columns of outcomes into a single response variable as evident in BPRSL and RATSL dataset. Thus, for regression function, long form data is preferred.
+### **Interpretation of the wide and long form data**
+
+If we compare wide and long form of data, the wide form combines one of the keys with the value variables and their columns represent groups. The wide data has multiple columns for outcomes as we can see in RATS and BPRS original dataset. The long form data presents each subject's response in multiple rows and every row shows a response/observation that belongs to a particular variable. In simple terms, the long form represents columns of outcomes into a single response variable as evident in BPRSL and RATSL dataset. Thus, for regression function, long form data is preferred.
 
 ## Analysis of RATS data
 
@@ -27,7 +28,7 @@ The RATS data in the current analysis is based on a nutrition study conducted in
 
 Question: Whether the growth profiles of the three groups differ?
 
-Hypothesis: The growth profiles of three groups of rats differ with time.
+Hypothesis: The growth profiles of three groups of rats differs with time.
 
 ### **Overview of RATSL (long form) data**
 
@@ -64,7 +65,7 @@ ggplot(RATSL, aes(x = Time, y = Weight, group = ID))+
 
 ```
 
-Graphically, there is an obvious difference in weight growth profile of individual rats in three groups. Group 1 seems to be under 300 grams. Group 2 lies between 400 to approx 600 grams. Group 2 seems to have highest growth. The graph is incresing with time. In Group 3, some subjects have higher growth profile but some seems to have decreased growth with time. Group 1 seems to have slight growth change throughout the study.
+Graphically, there is an obvious difference in weight growth profile of individual rats in three groups. Group 1 seems to be under 300 grams. Group 2 lies between 400 to approx 600 grams. Group 2 seems to have highest growth and the graph is increasing with time. In Group 3, some subjects have higher growth profile but some seems to have decreased growth with time. Group 1 seems to have slight growth change throughout the study.
 
 ### **Graphical overview after standardization**
 
@@ -97,7 +98,7 @@ ggplot(RATSL, aes(x = Time, y = stdweight, group = ID))+
 ```
 
 
-The rats who has more weight at the beginning seems to have increasing weight profile throughout the study.To see it in more clear way, standardizarion is done. The strandardization includes the values obtained by subtracting the relevant occasion mean from the original observation and then dividing by the corresponding visit standard deviation. There seems to be an incresing trend in all the three groups. Some rat's growth are increasing ezponentially. Group 2 seems to have highest growth rate.
+The rats who has more weight at the beginning seems to have increasing weight profile throughout the study.To see it in more clear way, standardizarion is done. The strandardization includes the values obtained by subtracting the relevant occasion mean from the original observation and then dividing by the corresponding visit standard deviation. There seems to be an increasing trend in all the three groups. Some rat's growth are increasing exponentially. Group 2 seems to have highest growth rate.
 
 
 
@@ -219,12 +220,14 @@ anova(fit1)
 
 
 The objective of the ANOVA test is to analyse if there  is a (statistically) significant difference in weight growth between different groups. It is going to compare means of response among the different groups and check if differences are statistically significant. Two hypothesis are there in ANOVA:
-          1. Null Hypothesis: All group means are equal and there is no difference among them.
-          2. Alternative Hypothesis: All group means are NOT equal and there is difference among the three groups under observation.
+
+*Null Hypothesis: All group means are equal and there is no difference among them.
+          
+*Alternative Hypothesis: All group means are NOT equal and there is difference among the three groups under observation.
 
 The larger the F value, the greater the relative variance among the group means. The F-value including outliers and without outliers is 88.07 and 483.6 resp which shows the great relative variance among groups. The p-value is also less than 0.05 suggesting the differences among group statistically significant.
 
-Hence the above mentioned hypothesis is true and growth profiles of three groups of rats differ with time.
+Hence the above mentioned hypothesis is true and growth profiles of three groups of rats differs with time.
 
 
 
@@ -241,7 +244,7 @@ BPRS <- read_csv("BPRS.csv")
 
 ```
 
-The second part of the current analysis is based on BPRS data which constitutes 40 male subjects that were randomly assigned to one of two treatment groups. The subjects were rated on the Brief Psychiatric Rating Scale (BPRS). They were measured before treatment began i.e.week 0 and then at weekly intervals for eight weeks. 
+The second part of the analysis is based on BPRS data which constitutes 40 male subjects that were randomly assigned to one of two treatment groups. The subjects were rated on the Brief Psychiatric Rating Scale (BPRS). They were measured before treatment began i.e.week 0 and then at weekly intervals for eight weeks. 
 
 The BPRS score shows the level of 18 symptom constructs, for instance, hostility, suspiciousness, hallucinations and grandiosity. The scale is rated from one (not present) to seven (extremely severe) and is used to investigate patients suspected of having schizophrenia.
 
@@ -292,7 +295,7 @@ ggplot(BPRSL, aes(x = week, y = bprs, linetype = subject)) +
 ```
 
 
-There seems to have overlapping between two treatments in the first plot. In the second plot, there seems to have decreasing trend in bprs score over the 8 weeks of time. 
+There seems to be overlapping between two treatments in the first plot. In the second plot, there seems to have decreasing trend in bprs score over the 8 weeks of time. 
 
 ### **Creating a regression model**
 
@@ -310,7 +313,7 @@ summary(BPRS_reg)$coefficient
 ```
 
 
-A multiple linear regression model is fitted with bprs score as response and week and treatment as explanatory variables.
+A multiple linear regression model is fitted with bprs score as response variable and week and treatment as explanatory variables.
 
 Tt can be seen that p-value of the F-statistic is < 2.2e-16, which is highly significant. It suggests that one of the explanatory variables is significantly related to the outcome variable. 
 
@@ -335,7 +338,7 @@ summary(BPRS_ref)
 ```
 
 The variance in random factor tells how much variability there is between subjects across the treatments.
-The estimated variance of the bprs random effects is 47.41, indicating variation in the intercepts of the regression fits of the subject bprs scores. The regression parameters for week and the treatment2 (treatment1 as reference) are similar to those in the previous regression model. The estimated standard error of treatment2 is slightly smaller than the previous regression model whereas it is almost similar with respect to week. Overall, the previous regression model and the random intercept model shows almost similar results.
+The estimated variance of the bprs random effects is 47.41, indicating variation in the intercepts of the regression fits of the subject's bprs scores. The regression parameters for week and the treatment2 (treatment1 as reference) are similar to those in the previous regression model. The estimated standard error of treatment2 is slightly smaller than the previous regression model whereas it is almost similar with respect to week. Overall, the previous regression model and the random intercept model shows almost similar results.
 
 ### **Random intercept and random slope model**
 
@@ -352,7 +355,7 @@ summary(BPRS_ref1)
 
 ```
 
-Fitting the random intercept and random slope model to the BRPS data, here the linear regression fits for each subject to differ in slope. The t-value with respect to week is larger as compared to the previous random intercept. The corelation of fixed effect in the slope model has also reduced in the slope model. The other observation with respect to random intercept and random intercept and slope model seems to be similar.
+Fitting the random intercept and random slope model to the BRPS data, here the linear regression fits for each subject to differ in slope. The t-value with respect to week is larger as compared to the previous random intercept. The corelation of fixed effect has also reduced in the slope model. The other observation with respect to random intercept and random intercept and slope model seems to be similar.
 
 ### **ANOVA test on two models (BPRS_ref, BPRS_ref1)**
 
