@@ -11,7 +11,7 @@ According to the instructions, the dataset has been swapped. The current analysi
 
 ### **Interpretation of the wide and long form data**
 
-If we compare wide and long form of data, the wide form combines one of the keys with the value variables and their columns represent groups. The wide data has multiple columns for outcomes as we can see in RATS and BPRS original dataset. The long form data presents each subject's response in multiple rows and every row shows a response/observation that belongs to a particular variable. In simple terms, the long form represents columns of outcomes into a single response variable as evident in BPRSL and RATSL dataset. For the regression function, long form data is preferred.
+If we compare wide and long form of data, the wide form combines one of the keys with the value variables and their columns represent groups. The wide data has multiple columns for outcomes as we can see in RATS and BPRS original dataset. The long form data presents each subject's response in multiple rows and every row shows a response/observation that belongs to a particular variable. In simple terms, the long form represents columns of outcomes into a single response variable as evident in BPRSL and RATSL dataset. For the regression and ggplot functions, long form data is preferred.
 
 ## Analysis of RATS data
 
