@@ -1,0 +1,40 @@
+---
+title: "analysis of longitudinal data"
+output: html_document
+---
+
+# Analysis of Longitudinal Data
+
+According to the instructions, the dataset has been swapped. The current analysis includes Chapter 8 of MABS using the RATS data and Chapter 9 of MABS using the BPRS data. 
+
+### **Interpretation of the wide and long form data**
+
+If we compare wide and long form of data, the wide form combines one of the keys with the value variables and their columns represent groups. The wide data has multiple columns for outcomes as we can see in RATS and BPRS original dataset. The long form data presents each subject's response in multiple rows and every row shows a response/observation that belongs to a particular variable. In simple terms, the long form represents columns of outcomes into a single response variable as evident in BPRSL and RATSL dataset. For the regression and ggplot functions, long form data is preferred.
+
+## Analysis of RATS data
+
+
+```{r, include=FALSE}
+setwd("~/GitHub/IODS-project/data")
+load("~/GitHub/IODS-project/data/RATSL.Rdata")
+library(readr)
+RATS <- read_csv("RATS.csv")
+
+```
+
+The RATS data in the current analysis is based on a nutrition study conducted in three groups of rats. Those three groups were put on different diets. Each rat's body weight in grams was recorded approximately on a weekly basis, except in week seven when two recordings were observed over a 9-week period. 
+
+Question: Whether the growth profiles of the three groups differ?
+
+Hypothesis: The growth profiles of three groups of rats differs with time.
+
+### **Overview of RATSL (long form) data**
+
+```{r, echo=FALSE}
+library(dplyr)
+head(RATSL)
+summary(RATSL)
+glimpse(RATSL)
+```
+
+The original data was in the wide form and had 16 obs. of  13 variables. After reshaping the data to long form, it has 176 obs. of 5 variables. The five variables are "ID", "Group", "WD", "Weight" and "Time". The minimum and maximum weight observed is 225 and 628 grams respectively. The time is observed in days ranging from 1-64.
