@@ -384,7 +384,7 @@ summary(BPRS_ref2)
 
 ```
 
-Fitting a random intercept and slope model that allows for a week × treatment interaction. 
+Fitting a random intercept and slope model that allows for a week Ã— treatment interaction. 
 
 The estimated regression parameters shows the interaction between week and treatment (0.71). To see the regression significance, let's do ANOVA test again.
 
