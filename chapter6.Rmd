@@ -446,13 +446,3 @@ The graph shows almost similar decreasing trend in both treatment 1 & 2.
 
 Hence, we can conclude from the above analysis that the bprs score of all of the subjects under observation seems to decrease over 8 weeks of time.
 
-### **References:**
-
-https://campus.datacamp.com/courses/helsinki-open-data-science/48773?ex=14
-
-https://github.com/KimmoVehkalahti/MABS/tree/master/Examples
-
-https://mooc.helsinki.fi/course/view.php?id=158&lang=en#section-6
-
-Analysis of longitudinal data ("MABS for IODS") Selected excerpts of the forthcoming book (Vehkalahti and
-Everitt, 2019)
