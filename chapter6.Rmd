@@ -20,8 +20,7 @@ If we compare wide and long form of data, the wide form combines one of the keys
 ```{r, include=FALSE}
 setwd("~/GitHub/IODS-project/data")
 load("~/GitHub/IODS-project/data/RATSL.Rdata")
-library(readr)
-RATS <- read_csv("RATS.csv")
+
 
 ```
 
@@ -240,8 +239,6 @@ Hence the above mentioned hypothesis is true and growth profiles of three groups
 ```{r, include=FALSE}
 load("~/GitHub/IODS-project/data/BPRSL.Rdata")
 setwd("~/GitHub/IODS-project/data")
-library(readr)
-BPRS <- read_csv("BPRS.csv")
 
 ```
 
