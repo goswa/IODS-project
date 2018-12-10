@@ -1,8 +1,9 @@
 ---
-title: "Analysis of Longitudinal Data"
+title: "Analysis of longitudinal data"
 author: "Shweta Goswami"
-date: "8-12-2018"
-output: html_document
+date: "08-12-2018"
+output:
+  html_document: default
 ---
 
 # Analysis of Longitudinal Data
